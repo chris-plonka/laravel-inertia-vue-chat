@@ -1,33 +1,37 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import Footer from "@/Components/Chat/Footer.vue";
+import Header from "@/Components/Chat/Header.vue";
+import Messages from "@/Components/Chat/Messages.vue";
+import Nav from "@/Components/Chat/Nav.vue";
 import { Head } from "@inertiajs/vue3";
 
-defineProps({
-    room: {
-        type: Object,
-        required: true,
-    },
-});
+//
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Messages" />
+    <div>
+        <!-- Page Container -->
+        <div
+            id="page-container"
+            class="relative mx-auto h-screen min-w-[320px] bg-white lg:ms-80"
+        >
+            <!-- Page Sidebar -->
+            <Nav />
+            <!-- Page Sidebar -->
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Messages
-            </h2>
-        </template>
+            <!-- Page Header -->
+            <Header />
+            <!-- END Page Header -->
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        {{ room }}
-                    </div>
-                </div>
-            </div>
+            <!-- Page Content -->
+            <Messages />
+            <!-- END Page Content -->
+
+            <!-- Page Footer -->
+            <Footer />
+            <!-- END Page Footer -->
         </div>
-    </AuthenticatedLayout>
+        <!-- END Page Container -->
+    </div>
 </template>
