@@ -27,7 +27,6 @@ const messagesStore = useMessagesStore();
 
             <!-- Page Content -->
             <Messages />
-            {{ messagesStore.allMessages }}
             <!-- END Page Content -->
 
             <!-- Page Footer -->
