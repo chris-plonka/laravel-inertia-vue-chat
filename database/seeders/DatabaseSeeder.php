@@ -18,7 +18,5 @@ class DatabaseSeeder extends Seeder
             RoomSeeder::class,
             MessageSeeder::class,
         ]);
-
-
     }
 }
