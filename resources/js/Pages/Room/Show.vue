@@ -4,8 +4,6 @@ import Header from "@/Components/Chat/Header.vue";
 import Messages from "@/Components/Chat/Messages.vue";
 import Nav from "@/Components/Chat/Nav.vue";
 import { Head } from "@inertiajs/vue3";
-
-//
 </script>
 
 <template>
@@ -29,7 +27,7 @@ import { Head } from "@inertiajs/vue3";
             <!-- END Page Content -->
 
             <!-- Page Footer -->
-            <Footer />
+            <Footer v-on:valid="console.log($event)" />
             <!-- END Page Footer -->
         </div>
         <!-- END Page Container -->
