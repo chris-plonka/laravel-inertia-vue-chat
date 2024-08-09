@@ -1,7 +1,20 @@
 <script setup>
 import { useMessagesStore } from "@/Store/useMessagesStore";
+import { useIntersectionObserver } from "@vueuse/core";
+import { ref } from "vue";
+
+const target = ref(null);
 
 const messagesStore = useMessagesStore();
+
+const { stop } = useIntersectionObserver(
+    target,
+    ([{ isIntersecting }], observerElement) => {
+        if (isIntersecting) {
+            console.log("Intersecting");
+        }
+    }
+);
 </script>
 
 <template>
@@ -58,6 +71,7 @@ const messagesStore = useMessagesStore();
                 </p>
             </div>
             <!-- END  Messages Received -->
+            <div ref="target"></div>
         </div>
     </main>
 </template>
