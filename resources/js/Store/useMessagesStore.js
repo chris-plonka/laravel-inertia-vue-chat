@@ -2,7 +2,7 @@ import axios from "axios";
 import { defineStore } from "pinia";
 
 export const useMessagesStore = defineStore("messages", {
-    state: () => ({ page: 1, messages: [] }),
+    state: () => ({ page: 1, messages: [], isLoaded: false }),
 
     actions: {
         fetchMessages(roomSlug, page = 1) {
@@ -12,13 +12,19 @@ export const useMessagesStore = defineStore("messages", {
                     this.messages = [...this.messages, ...response.data.data];
                     this.page = response.data.meta.current_page;
 
-                    return response;
+                    this.isLoaded = true;
                 });
+        },
+        fetchPreviousMessages(roomSlug) {
+            this.fetchMessages(roomSlug, this.page + 1);
         },
     },
     getters: {
         allMessages(state) {
             return state.messages;
+        },
+        getIsLoaded(state) {
+            return state.isLoaded;
         },
     },
 });
