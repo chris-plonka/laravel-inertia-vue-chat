@@ -35,8 +35,7 @@ messagesStore.fetchMessages(props.room.slug);
             <!-- END Page Header -->
 
             <!-- Page Content -->
-            {{ messagesStore.allMessages }}
-            <Messages />
+            <Messages :room="room" />
             <!-- END Page Content -->
 
             <!-- Page Footer -->

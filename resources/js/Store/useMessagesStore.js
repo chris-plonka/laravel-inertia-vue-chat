@@ -9,8 +9,10 @@ export const useMessagesStore = defineStore("messages", {
             axios
                 .get(`/rooms/${roomSlug}/messages?page=${page}`)
                 .then((response) => {
-                    this.messages = [...this.messages, response.data.data];
+                    this.messages = [...this.messages, ...response.data.data];
                     this.page = response.data.meta.current_page;
+
+                    return response;
                 });
         },
     },
