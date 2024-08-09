@@ -6,7 +6,16 @@ import Nav from "@/Components/Chat/Nav.vue";
 import { useMessagesStore } from "@/Store/useMessagesStore";
 import { Head } from "@inertiajs/vue3";
 
+const props = defineProps({
+    room: {
+        type: Object,
+        required: true,
+    },
+});
+
 const messagesStore = useMessagesStore();
+
+messagesStore.fetchMessages(props.room.slug);
 </script>
 
 <template>
@@ -26,6 +35,7 @@ const messagesStore = useMessagesStore();
             <!-- END Page Header -->
 
             <!-- Page Content -->
+            {{ messagesStore.allMessages }}
             <Messages />
             <!-- END Page Content -->
 
