@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\MessageResource;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -26,9 +27,8 @@ class MessageCreated implements ShouldBroadcastNow
 
     public function broadcastWith()
     {
-        return [
-            'id' => $this->message->id,
-        ];
+        return MessageResource::make($this->message)
+            ->toArray(request());
     }
 
     /**
