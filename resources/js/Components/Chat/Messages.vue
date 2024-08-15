@@ -29,7 +29,6 @@ const { stop } = useIntersectionObserver(
         <div
             class="container mx-auto space-y-6 px-4 py-24 lg:p-8 lg:pb-28 xl:max-w-7xl flex flex-col-reverse h-full overflow-y-auto"
         >
-            <!-- Messages Received -->
             <div
                 v-for="message in messagesStore.allMessages"
                 :key="message.id"
@@ -77,7 +76,6 @@ const { stop } = useIntersectionObserver(
                     {{ message.created_at }}
                 </p>
             </div>
-            <!-- END  Messages Received -->
             <div ref="target" class="translate-y-20"></div>
         </div>
     </main>
