@@ -4,6 +4,7 @@ import Header from "@/Components/Chat/Header.vue";
 import Messages from "@/Components/Chat/Messages.vue";
 import Nav from "@/Components/Chat/Nav.vue";
 import { useMessagesStore } from "@/Store/useMessagesStore";
+import { useUsersStore } from "@/Store/useUsersStore";
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -14,6 +15,7 @@ const props = defineProps({
 });
 
 const messagesStore = useMessagesStore();
+const usersStore = useUsersStore();
 
 const storeMessage = (payload) => {
     messagesStore.storeMessage(props.room.slug, payload);
@@ -26,7 +28,7 @@ channel
         messagesStore.pushMessage(e);
     })
     .here((users) => {
-        console.log(users);
+        usersStore.setUsers(users);
     });
 
 messagesStore.fetchMessages(props.room.slug);
