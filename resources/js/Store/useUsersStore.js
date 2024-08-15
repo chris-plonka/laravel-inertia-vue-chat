@@ -7,6 +7,18 @@ export const useUsersStore = defineStore("users", {
         setUsers(users) {
             this.users = users;
         },
+        addUser(user) {
+            if (
+                typeof this.users.find((u) => u.id === user.id) !== "undefined"
+            ) {
+                return;
+            }
+
+            this.users.push(user);
+        },
+        removeUser(user) {
+            this.users = this.users.filter((u) => u.id !== user.id);
+        },
     },
     getters: {
         allUsers(state) {
