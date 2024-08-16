@@ -16,6 +16,19 @@ const handleEnter = (e) => {
         message.value = "";
     }
 };
+
+let typingTimeout = null;
+
+const handleTyping = () => {
+    clearTimeout(typingTimeout);
+    emit("typing", true);
+    typingTimeout = setTimeout(handleFinishedTyping, 3000);
+};
+
+const handleFinishedTyping = () => {
+    clearTimeout(typingTimeout);
+    emit("typing", false);
+};
 </script>
 
 <template>
@@ -29,6 +42,7 @@ const handleEnter = (e) => {
             v-on:keydown.enter.prevent="handleEnter"
             v-on:keydown.shift="shift = true"
             v-on:keyup="shift = false"
+            v-on:keydown="handleTyping"
             class="w-11/12 rounded-lg border-0 px-5 ml-4 py-4 focus:border-indigo-500 focus:ring focus:ring-indigo-500/75"
             placeholder="Type a new message and hit enter.."
         ></textarea>
