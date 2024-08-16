@@ -6,12 +6,17 @@ import Nav from "@/Components/Chat/Nav.vue";
 import { useMessagesStore } from "@/Store/useMessagesStore";
 import { useUsersStore } from "@/Store/useUsersStore";
 import { Head } from "@inertiajs/vue3";
+import { onUnmounted } from "vue";
 
 const props = defineProps({
     room: {
         type: Object,
         required: true,
     },
+});
+
+onUnmounted(() => {
+    Echo.leave(`room.${props.room.id}`);
 });
 
 const messagesStore = useMessagesStore();
@@ -29,7 +34,10 @@ channel
     })
     .here((users) => usersStore.setUsers(users))
     .joining((user) => usersStore.addUser(user))
-    .leaving((user) => usersStore.removeUser(user));
+    .leaving((user) => usersStore.removeUser(user))
+    .listenForWhisper("typing", (e) => {
+        usersStore.setTyping(e);
+    });
 
 messagesStore.fetchMessages(props.room.slug);
 </script>
@@ -57,7 +65,12 @@ messagesStore.fetchMessages(props.room.slug);
             <!-- Page Footer -->
             <Footer
                 v-on:valid="storeMessage({ content: $event })"
-                v-on:typing="console.log($event)"
+                v-on:typing="
+                    channel.whisper('typing', {
+                        user_id: $page.props.auth.user.id,
+                        typing: $event,
+                    })
+                "
             />
             <!-- END Page Footer -->
         </div>

@@ -14,6 +14,7 @@ const handleEnter = (e) => {
     if (message.value.length) {
         emit("valid", message.value);
         message.value = "";
+        handleFinishedTyping();
     }
 };
 
