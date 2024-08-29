@@ -1,3 +1,13 @@
+<script setup>
+const props = defineProps({
+    handleSidebar: {
+        type: Function,
+        required: true,
+    },
+    mobileSidebarOpen: Boolean,
+});
+</script>
+
 <template>
     <header
         id="page-header"
@@ -11,6 +21,7 @@
                 <!-- Toggle Sidebar on Mobile -->
                 <button
                     type="button"
+                    @click="handleSidebar(true)"
                     class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-2.5 py-2 font-semibold leading-6 text-slate-800 shadow-sm hover:border-slate-300 hover:bg-slate-100 hover:text-slate-800 hover:shadow focus:outline-none focus:ring focus:ring-slate-500/25 active:border-white active:bg-white active:shadow-none"
                 >
                     <svg

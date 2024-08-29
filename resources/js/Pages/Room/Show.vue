@@ -6,7 +6,7 @@ import Nav from "@/Components/Chat/Nav.vue";
 import { useMessagesStore } from "@/Store/useMessagesStore";
 import { useUsersStore } from "@/Store/useUsersStore";
 import { Head } from "@inertiajs/vue3";
-import { onUnmounted } from "vue";
+import { onUnmounted, ref } from "vue";
 
 const props = defineProps({
     room: {
@@ -21,6 +21,13 @@ onUnmounted(() => {
 
 const messagesStore = useMessagesStore();
 const usersStore = useUsersStore();
+const mobileSidebarOpen = ref(false);
+
+const handleSidebar = (value) => {
+    mobileSidebarOpen.value = value;
+};
+
+// mobileSidebarOpen.value = true;
 
 const storeMessage = (payload) => {
     messagesStore.storeMessage(props.room.slug, payload);
@@ -51,11 +58,17 @@ messagesStore.fetchMessages(props.room.slug);
             class="relative mx-auto h-screen min-w-[320px] bg-white lg:ms-80"
         >
             <!-- Page Sidebar -->
-            <Nav />
+            <Nav
+                :mobile-sidebar-open="mobileSidebarOpen"
+                :handle-sidebar="handleSidebar"
+            />
             <!-- Page Sidebar -->
 
             <!-- Page Header -->
-            <Header />
+            <Header
+                :mobile-sidebar-open="mobileSidebarOpen"
+                :handle-sidebar="handleSidebar"
+            />
             <!-- END Page Header -->
 
             <!-- Page Content -->
